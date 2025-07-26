@@ -1,30 +1,44 @@
-# Homework4
+# Autonomous Navigation and Vision-Based Control for a Mobile Robot in ROS2
 
-## :package: About
+![FRA2MO Robot Navigating in Gazebo](placeholder.gif) 
+## 🤖 Project Overview
 
-This package contains the developed code for the fourth homework of the Robotics Lab 2024/25 Course. The authors of the package are:
-William Notaro, Chiara Panagrosso, Salvatore Piccolo, Roberto Rocco.
+This repository contains a complete autonomous navigation software framework for a differential drive mobile robot (`rl_fra2mo`). The project was developed using ROS2 and the Nav2 stack, and it is simulated in the Gazebo environment. The primary goal is to perform waypoint following, environment mapping, and vision-based tasks, demonstrating a comprehensive understanding of modern robotic navigation systems.
 
-The folder contains, in addition to all the necessary packages for proper functionality, a subfolder named 'Attempts'. This subfolder includes the 4 attempts required in point 3 of the homework, with the respective parameter values set for each attempt. For completeness, the execution time and the accuracy achieved for each mapping are also provided.
+---
 
-## :hammer: Build
-Clone this package in the `src` folder of your ROS 2 workspace.  If you want to only clone the content files without creating the repo folder (only works if the destination folder is empty), use:
-```
-git clone https://github.com/Robertorocco/RL24-Homework4.git .
-```
-Alternatively, use:
-```
-git clone https://github.com/Robertorocco/RL24-Homework4.git
-```
+## ✨ Key Features
 
-Build the packages with
-```
-colcon build
-```
-Source the setup files
-```
-source ~/ros2_ws/install/setup.bash
-```
+* **Custom Gazebo Simulation**: The project launches in a modified Gazebo world (`leonardo_race_field`) with the robot spawned at a specific initial pose. The world includes repositioned obstacles and strategically placed ArUco markers for vision tasks.
+* **Waypoint Following with Nav2**: Implements multi-goal navigation using the Nav2 Simple Commander API. The robot follows a predefined sequence of four goals loaded from a YAML file. The executed trajectory is recorded and analyzed using `ros2 bag`.
+* **Environment Mapping & SLAM Tuning**: Utilizes the Nav2 stack to generate a complete map of the environment. The project involved tuning key SLAM and costmap parameters across multiple configurations to analyze the impact on map accuracy, trajectory execution, and timing.
+* **Vision-Based Navigation Task**: Integrates the `aruco_ros` package to perform a complex, vision-guided task. The robot autonomously navigates to an object, uses its camera to locate an ArUco marker, retrieves the marker's pose relative to the map, and returns to its initial position.
+
+---
+
+## 🛠️ Core Technologies & Skills
+
+* **Frameworks & Libraries**: ROS2, Nav2, Gazebo, RViz, `aruco_ros`
+* **Languages**: Python, YAML
+* **Robotics Concepts**:
+    * **Navigation**: Simultaneous Localization and Mapping (SLAM), Motion Planning, Obstacle Avoidance, Costmaps (Global and Local)
+    * **Control**: Waypoint Following, Behavior Trees (via Nav2)
+    * **Computer Vision**: Fiducial Marker Detection (ArUco)
+    * **Simulation & Tooling**: SDF (Gazebo world files), TF2 (Transform System), `ros2 bag`
+
+---
+
+## 📋 Implementation Highlights
+
+This project was implemented as a series of distinct but interconnected tasks:
+
+1.  **Waypoint Navigation**: A Python script uses the Nav2 Simple Commander API to send a sequence of goals to the robot, waiting for each one to be completed before sending the next.
+
+2.  **SLAM and Parameter Tuning**: The robot explores the environment to build a map. Key parameters within `slam.yaml` and `explore.yaml` were systematically modified to observe their effect on performance.
+
+3.  **Vision-in-the-loop Task**: A high-level state machine was implemented where the robot first navigates to the proximity of a specific obstacle. It then activates a search behavior to find the ArUco marker. Upon detection, it computes the marker's world-frame pose and publishes it before navigating home.
+
+---
 
 ## :white_check_mark: Usage
 ### 1. Autonomous navigation task

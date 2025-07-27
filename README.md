@@ -4,6 +4,9 @@
 ## 🤖 Project Overview
 
 This repository contains a complete autonomous navigation software framework for a differential drive mobile robot (`rl_fra2mo`). The project was developed using ROS2 and the Nav2 stack, and it is simulated in the Gazebo environment. The primary goal is to perform waypoint following, environment mapping, and vision-based tasks, demonstrating a comprehensive understanding of modern robotic navigation systems.
+![Trajectory result](images/rosbag2.jpg)
+![Expected Trajectory](images/goalWaypointsImg.jpg)
+
 
 ## 📄 Documentation
 
